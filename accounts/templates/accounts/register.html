@@ -6,6 +6,13 @@
 {% block content %}
 <div class="container">
     <h1 class="my-4">{% trans "Регистрация" %}</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -27,4 +34,3 @@
     </p>
 </div>
 {% endblock %}
-

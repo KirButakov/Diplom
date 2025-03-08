@@ -9,7 +9,7 @@ from .models import DiaryEntry
 from .forms import DiaryEntryForm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-
+from django.contrib import messages
 
 @login_required
 def create_entry(request):
@@ -96,4 +96,10 @@ def export_entry_pdf(request, entry_id):
     doc.build(story)
     return response
 
+@login_required
+def delete_entry(request, entry_id):
+    entry = get_object_or_404(DiaryEntry, id=entry_id, user=request.user)
+    entry.delete()
+    messages.success(request, 'Запись успешно удалена.')
+    return redirect('entry_list')
 
