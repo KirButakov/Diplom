@@ -1,6 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 from .models import DiaryEntry, UserProfile
+
 
 @receiver(post_save, sender=DiaryEntry)
 def update_user_profile(sender, instance, **kwargs):

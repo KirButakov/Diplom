@@ -7,6 +7,17 @@
 <h1 class="my-4">{% trans "Мои достижения" %}</h1>
 <p>{% trans "Количество записей:" %} {{ entries_count }}</p>
 
+<!-- Прогресс-бар -->
+{% if next_achievement %}
+<div class="progress mb-4">
+    <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<p>{% trans "До следующего достижения осталось:" %} {{ entries_left }} {% trans "записей" %}.</p>
+{% else %}
+<p>{% trans "Вы получили все достижения! 🎉" %}</p>
+{% endif %}
+
+<!-- Список достижений -->
 <div class="row">
     {% for achievement in achievements %}
         <div class="col-md-4 mb-4">
