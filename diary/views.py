@@ -10,6 +10,8 @@ from .forms import DiaryEntryForm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from django.contrib import messages
+from django.shortcuts import render
+from .models import UserProfile
 
 @login_required
 def create_entry(request):
@@ -103,3 +105,16 @@ def delete_entry(request, entry_id):
     messages.success(request, 'Запись успешно удалена.')
     return redirect('entry_list')
 
+
+@login_required
+def achievements(request):
+    # Попробуем получить профиль пользователя, если его нет — создаем
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    # Обновляем количество записей, если профиль был только что создан
+    if created:
+        user_profile.update_entries_count()
+
+    achievements = user_profile.achievements.all()
+    return render(request, 'diary/achievements.html',
+                  {'achievements': achievements, 'entries_count': user_profile.entries_count})

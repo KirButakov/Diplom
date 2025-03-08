@@ -9,4 +9,5 @@ urlpatterns = [
     path('search/', views.search_entries, name='search_entries'),
     path('export/<int:entry_id>/pdf/', views.export_entry_pdf, name='export_entry_pdf'),
     path('delete/<int:entry_id>/', views.delete_entry, name='delete_entry'),
+    path('achievements/', views.achievements, name='achievements'),
 ]

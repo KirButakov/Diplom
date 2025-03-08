@@ -5,6 +5,12 @@
 
 {% block content %}
 <h1 class="my-4">{% trans "Мои записи" %}</h1>
+
+<!-- Кнопка для перехода к достижениям -->
+<a href="{% url 'achievements' %}" class="btn btn-info mb-4">
+    <i class="fas fa-trophy"></i> {% trans 'Мои достижения' %}
+</a>
+
 <form method="get" action="{% url 'search_entries' %}" class="mb-4">
     <div class="input-group">
         <input type="text" name="q" placeholder="{% trans 'Поиск...' %}" class="form-control">
