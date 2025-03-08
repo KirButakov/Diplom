@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">{{ entry.title }}</h1>
+        <p class="card-text">{{ entry.content|safe }}</p>
+        {% if entry.image %}
+            <img src="{{ entry.image.url }}" alt="{{ entry.title }}" class="img-fluid rounded mb-3">
+        {% endif %}
+        <p class="text-muted">
+            <i class="fas fa-tags"></i> {% trans "Tags:" %} {% for tag in entry.tags.all %}{{ tag.name }} {% endfor %}
+        </p>
+        <p class="text-muted">
+            <i class="fas fa-calendar-alt"></i> {% trans "Created at:" %} {{ entry.created_at|date:"M d, Y H:i" }}
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'edit_entry' entry.id %}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> {% trans "Edit" %}
+            </a>
+            <a href="{% url 'export_entry_pdf' entry.id %}" class="btn btn-info">
+                <i class="fas fa-file-pdf"></i> {% trans "Export to PDF" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

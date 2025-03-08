@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Мои записи" %}{% endblock %}
+
+{% block content %}
+<h1 class="my-4">{% trans "Мои записи" %}</h1>
+<form method="get" action="{% url 'search_entries' %}" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="q" placeholder="{% trans 'Поиск...' %}" class="form-control">
+        <input type="text" name="tag" placeholder="{% trans 'Тег...' %}" class="form-control">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i> {% trans 'Искать' %}
+        </button>
+    </div>
+</form>
+<a href="{% url 'create_entry' %}" class="btn btn-success mb-4">
+    <i class="fas fa-plus"></i> {% trans 'Создать новую запись' %}
+</a>
+<div class="row">
+    {% for entry in entries %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ entry.title }}</h5>
+                    <p class="card-text">{{ entry.content|truncatewords:20 }}</p>
+                    <p class="text-muted">
+                        <i class="fas fa-calendar-alt"></i> {{ entry.created_at|date:"d M Y" }}
+                    </p>
+                    <a href="{% url 'entry_detail' entry.id %}" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> {% trans 'Просмотр' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+

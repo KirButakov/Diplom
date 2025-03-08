@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: diary
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2248633q
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:2248633q@db:5432/diary
+      DJANGO_SETTINGS_MODULE: diary_platform.settings.local
+
+volumes:
+  postgres_data:
+
+
+
+
+
+
+
