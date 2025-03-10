@@ -20,7 +20,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:2248633q@db:5432/diary
       DJANGO_SETTINGS_MODULE: diary_platform.settings.local
-    command: [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
 volumes:
   postgres_data:

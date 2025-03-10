@@ -16,29 +16,29 @@ class DiaryEntry(models.Model):
         return self.title
 
 
-class Achievement(models.Model):
+class Achievement(models.Model): # Описывает достижения пользователя
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField() # Описание достижения.
     condition = models.CharField(max_length=100)  # Например, "5 записей"
 
     def __str__(self):
         return self.name
 
 
-class UserProfile(models.Model):
+class UserProfile(models.Model): # Хранит информацию о пользователе
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    entries_count = models.IntegerField(default=0)
-    achievements = models.ManyToManyField(Achievement, blank=True)
+    entries_count = models.IntegerField(default=0) # количество записей сделаных пользователем
+    achievements = models.ManyToManyField(Achievement, blank=True) # Достижения
 
     def __str__(self):
         return self.user.username
 
-    def update_entries_count(self):
+    def update_entries_count(self): # Ведет подсчет записей пользователя и сохраняет результат
         self.entries_count = DiaryEntry.objects.filter(user=self.user).count()
         self.save()
         self.check_achievements()
 
-    def check_achievements(self):
+    def check_achievements(self): # Проверка достижений
         achievements = Achievement.objects.all()
         for achievement in achievements:
             if self.entries_count >= int(achievement.condition):
