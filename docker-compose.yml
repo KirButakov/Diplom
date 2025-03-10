@@ -4,10 +4,8 @@ version: '3.8'
 services:
   db:
     image: postgres:13
-    environment:
-      POSTGRES_DB: diary
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 2248633q
+    env_file:
+      - .env  # Используем переменные из .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

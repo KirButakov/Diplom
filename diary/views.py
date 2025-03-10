@@ -21,6 +21,7 @@ def create_entry(request):
             entry = form.save(commit=False)
             entry.user = request.user
             entry.save()
+            form.save_m2m()  # Сохраняем теги
             return redirect("entry_detail", entry.id)
     else:
         form = DiaryEntryForm()

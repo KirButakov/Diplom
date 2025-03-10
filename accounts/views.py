@@ -23,6 +23,8 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             return redirect("entry_list")
+        else:
+            messages.error(request, "Неверный логин или пароль.")
     else:
         form = AuthenticationForm()
     return render(request, "accounts/login.html", {"form": form})

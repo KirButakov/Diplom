@@ -1,0 +1,10 @@
+# Настройки базы данных
+POSTGRES_DB=diary
+POSTGRES_USER=ваш-user-name
+POSTGRES_PASSWORD=ваш-password
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+
+# Настройки Django
+SECRET_KEY=ваш-secret-key
+DEBUG=True
